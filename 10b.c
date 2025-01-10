@@ -1,67 +1,69 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-int main() {
-    int t[20], d[20], h, i, j, n, temp, k, atr[20], sum = 0, p = 0;
-    float avg;
+struct fileTable
+{
+    char name[20];
+    int nob;         
+    int blocks[30];  
+} ft[30];
 
-    printf("Enter the number of tracks to be traversed: ");
+int main()
+{
+    int i, j, n;
+    char s[20];
+
+    printf("Enter number of files: ");
     scanf("%d", &n);
-    printf("Enter the position of the head: ");
-    scanf("%d", &h);
 
-    // Input tracks
-    t[0] = 0; // Adding start of the disk
-    printf("Enter the tracks: ");
-    for (i = 1; i <= n; i++) {
-        scanf("%d", &t[i]);
-    }
-    t[n + 1] = h; // Adding head position
-    n += 2; // Adjust total number of tracks
+  
+    for (i = 0; i < n; i++)
+    {
+        printf("\nEnter file name %d: ", i + 1);
+        scanf("%s", ft[i].name);
 
-    // Sort the tracks in ascending order
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) {
-            if (t[j] > t[j + 1]) {
-                temp = t[j];
-                t[j] = t[j + 1];
-                t[j + 1] = temp;
-            }
+        printf("Enter number of blocks in file %d: ", i + 1);
+        scanf("%d", &ft[i].nob);
+
+        if (ft[i].nob > 30 || ft[i].nob < 0)
+        {
+            printf("Error: Number of blocks must be between 0 and 30.\n");
+            return 1;
+        }
+
+        printf("Enter the blocks of the file: ");
+        for (j = 0; j < ft[i].nob; j++)
+        {
+            scanf("%d", &ft[i].blocks[j]);
         }
     }
 
-    // Find the position of the head
-    for (i = 0; i < n; i++) {
-        if (t[i] == h) {
+ 
+    printf("\nEnter the file name to be searched: ");
+    scanf("%s", s);
+
+    for (i = 0; i < n; i++)
+    {
+        if (strcmp(s, ft[i].name) == 0)
             break;
+    }
+
+    if (i == n)
+    {
+        printf("\nFile Not Found\n");
+    }
+    else
+    {
+        printf("\nFILE NAME\tNO OF BLOCKS\tBLOCKS OCCUPIED\n");
+        printf("%s\t\t%d\t\t", ft[i].name, ft[i].nob);
+        for (j = 0; j < ft[i].nob; j++)
+        {
+            printf("%d", ft[i].blocks[j]);
+            if (j < ft[i].nob - 1)
+                printf(", ");
         }
+        printf("\n");
     }
-
-    // SCAN direction: First go left, then right
-    for (j = i; j >= 0; j--) {
-        atr[p++] = t[j];
-    }
-    for (j = i + 1; j < n; j++) {
-        atr[p++] = t[j];
-    }
-
-    // Calculate movements
-    for (j = 0; j < n - 1; j++) {
-        d[j] = abs(atr[j + 1] - atr[j]);
-        sum += d[j];
-    }
-
-    // Calculate average
-    avg = (float)sum / (n - 2);
-
-    // Output results
-    printf("\nTotal header movements: %d", sum);
-    printf("\nAverage header movements: %.2f\n", avg);
 
     return 0;
 }
-
-
-// 5
-// 50
-// 10 20 30 70 90
