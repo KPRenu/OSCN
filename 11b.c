@@ -1,40 +1,69 @@
 #include <stdio.h>
-#include <conio.h>
 #include <string.h>
+
 struct fileTable
 {
     char name[20];
-    int nob, blocks[30];
+    int nob;         
+    int blocks[30];  
 } ft[30];
-void main()
+
+int main()
 {
     int i, j, n;
     char s[20];
 
-    printf("Enter no of files :");
+    printf("Enter number of files: ");
     scanf("%d", &n);
+
+  
     for (i = 0; i < n; i++)
     {
-        printf("\nEnter file name %d :", i + 1);
+        printf("\nEnter file name %d: ", i + 1);
         scanf("%s", ft[i].name);
-        printf("Enter no of blocks in file %d :", i + 1);
+
+        printf("Enter number of blocks in file %d: ", i + 1);
         scanf("%d", &ft[i].nob);
-        printf("Enter the blocks of the file :");
+
+        if (ft[i].nob > 30 || ft[i].nob < 0)
+        {
+            printf("Error: Number of blocks must be between 0 and 30.\n");
+            return 1;
+        }
+
+        printf("Enter the blocks of the file: ");
         for (j = 0; j < ft[i].nob; j++)
+        {
             scanf("%d", &ft[i].blocks[j]);
+        }
     }
-    printf("\nEnter the file name to be searched -- ");
+
+ 
+    printf("\nEnter the file name to be searched: ");
     scanf("%s", s);
+
     for (i = 0; i < n; i++)
+    {
         if (strcmp(s, ft[i].name) == 0)
             break;
+    }
+
     if (i == n)
-        printf("\nFile Not Found");
+    {
+        printf("\nFile Not Found\n");
+    }
     else
     {
-        printf("\nFILE NAME NO OF BLOCKS BLOCKS OCCUPIED");
-        printf("\n %s\t\t%d\t", ft[i].name, ft[i].nob);
+        printf("\nFILE NAME\tNO OF BLOCKS\tBLOCKS OCCUPIED\n");
+        printf("%s\t\t%d\t\t", ft[i].name, ft[i].nob);
         for (j = 0; j < ft[i].nob; j++)
-            printf("%d, ", ft[i].blocks[j]);
+        {
+            printf("%d", ft[i].blocks[j]);
+            if (j < ft[i].nob - 1)
+                printf(", ");
+        }
+        printf("\n");
     }
+
+    return 0;
 }
