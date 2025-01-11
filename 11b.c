@@ -16,21 +16,12 @@ int main()
     printf("Enter number of files: ");
     scanf("%d", &n);
 
-  
     for (i = 0; i < n; i++)
     {
         printf("\nEnter file name %d: ", i + 1);
         scanf("%s", ft[i].name);
-
         printf("Enter number of blocks in file %d: ", i + 1);
         scanf("%d", &ft[i].nob);
-
-        if (ft[i].nob > 30 || ft[i].nob < 0)
-        {
-            printf("Error: Number of blocks must be between 0 and 30.\n");
-            return 1;
-        }
-
         printf("Enter the blocks of the file: ");
         for (j = 0; j < ft[i].nob; j++)
         {
@@ -38,7 +29,6 @@ int main()
         }
     }
 
- 
     printf("\nEnter the file name to be searched: ");
     scanf("%s", s);
 
@@ -58,9 +48,7 @@ int main()
         printf("%s\t\t%d\t\t", ft[i].name, ft[i].nob);
         for (j = 0; j < ft[i].nob; j++)
         {
-            printf("%d", ft[i].blocks[j]);
-            if (j < ft[i].nob - 1)
-                printf(", ");
+            printf("%d ", ft[i].blocks[j]);
         }
         printf("\n");
     }
