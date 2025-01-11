@@ -5,6 +5,7 @@ int main() {
     int t[20], d[20], h, i, j, n, temp, k, atr[20], sum = 0, p = 0;
     float avg;
 
+    printf("*** SCAN Disk Scheduling Algorithm ***\n");
     printf("Enter the number of tracks to be traversed: ");
     scanf("%d", &n);
     printf("Enter the position of the head: ");
