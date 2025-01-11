@@ -30,16 +30,13 @@ int main() {
             printf("\nFILE NAME\tSTART BLOCK\tNO OF BLOCKS\tBLOCKS OCCUPIED\n");
             printf("%s\t\t%d\t\t%d\t\t", ft[i].name, ft[i].sb, ft[i].nob);
             for (j = 0; j < ft[i].nob; j++) {
-                if (j == ft[i].nob - 1)
-                    printf("%d", ft[i].sb + j);
-                else
-                    printf("%d, ", ft[i].sb + j);
+                    printf("%d ", ft[i].sb + j);
             }
             printf("\n");
             return 0; 
         }
     }
-    
+
     printf("\nFile Not Found\n");
     return 0;
 }
