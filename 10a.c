@@ -1,45 +1,44 @@
 #include <stdio.h>
-#include <conio.h>
-#include <math.h>
-int main()
-{
-    int queue[100], t[100], head, seek = 0, n, i, j, temp;
-    float avg;
+#include <stdlib.h> 
+
+int main() {
+    int queue[100], visited[100] = {0}, head, seek = 0, n, i, j, min_index;
+    float avg_seek;
 
     printf("*** SSTF Disk Scheduling Algorithm ***\n");
-    printf("Enter the size of Queue\t");
+    printf("Enter the size of Queue: ");
     scanf("%d", &n);
-    printf("Enter the Queue\t");
-    for (i = 0; i < n; i++)
-    {
+
+    printf("Enter the Queue: ");
+    for (i = 0; i < n; i++) {
         scanf("%d", &queue[i]);
     }
-    printf("Enter the initial head position\t");
+
+    printf("Enter the initial head position: ");
     scanf("%d", &head);
-    for (i = 1; i < n; i++)
-        t[i] = abs(head - queue[i]);
-    for (i = 0; i < n; i++)
-    {
-        for (j = i + 1; j < n; j++)
-        {
-            if (t[i] > t[j])
-            {
-                temp = t[i];
-                t[i] = t[j];
-                t[j] = temp;
-                temp = queue[i];
-                queue[i] = queue[j];
-                queue[j] = temp;
+
+    printf("\nSeek Sequence is:\n");
+    for (i = 0; i < n; i++) {
+        int min_distance = 1e9; 
+        for (j = 0; j < n; j++) {
+            if (!visited[j]) { 
+                int distance = abs(head - queue[j]);
+                if (distance < min_distance) {
+                    min_distance = distance;
+                    min_index = j;
+                }
             }
         }
+
+        visited[min_index] = 1;
+        seek += abs(head - queue[min_index]);
+        head = queue[min_index];
+        printf("%d ", head);
     }
-    for (i = 1; i < n - 1; i++)
-    {
-        seek = seek + abs(head - queue[i]);
-        head = queue[i];
-    }
-    printf("\nTotal Seek Time is%d\t", seek);
-    avg = seek / (float)n;
-    printf("\nAverage Seek Time is %f\t", avg);
+
+    avg_seek = (float)seek / n;
+    printf("\n\nTotal Seek Time: %d", seek);
+    printf("\nAverage Seek Time: %.2f\n", avg_seek);
+
     return 0;
 }
